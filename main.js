@@ -2,8 +2,14 @@ const inputs = [].slice.call(document.querySelectorAll("input"));
 
 for (input of inputs) {
     input.addEventListener("click", function(event) {
-        console.log(inputs.findIndex(checkedBox));
-        console.log(findLastCheck(inputs));
+        const firstCheck = inputs.findIndex(checkedBox);
+        const lastCheck = findLastCheck(inputs);
+        
+        if (event.shiftKey) {
+            for (let i = firstCheck; i < lastCheck; i++) {
+                inputs[i].checked = true;
+            }
+        }
     });
 }
 
