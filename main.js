@@ -1,26 +1,24 @@
-const inputs = [].slice.call(document.querySelectorAll("input"));
+const inputs = document.querySelectorAll("input");
+
+let lastChecked;
 
 for (input of inputs) {
-    input.addEventListener("click", function(event) {
-        const firstCheck = inputs.findIndex(checkedBox);
-        const lastCheck = findLastCheck(inputs);
-        
-        if (event.shiftKey) {
-            for (let i = firstCheck; i < lastCheck; i++) {
-                inputs[i].checked = true;
+    input.addEventListener("click", tickBoxes);
+}
+
+function tickBoxes(e) {
+    let inBetween = false;
+
+    if (e.shiftKey && this.checked) {
+        inputs.forEach(checkbox => {
+            if (checkbox === this || checkbox === lastChecked) {
+                inBetween = !inBetween;
             }
-        }
-    });
-}
 
-function checkedBox(element) {
-    return element.checked;
-}
-
-function findLastCheck(array) {
-    for (let i = array.length - 1; i > 0; i--){
-        if(array[i].checked){
-            return i;
-        }
+            if (inBetween) {
+                checkbox.checked = true;
+            }
+        });
     }
+    lastChecked = this;
 }
